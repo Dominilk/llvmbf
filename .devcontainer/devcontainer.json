@@ -3,8 +3,8 @@
 {
 	"name": "Rust",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/rust:1-1-bullseye",
-	"features": {}
+	"image": "mcr.microsoft.com/devcontainers/rust:1-1-buster",
+	"features": {},
 
 	// Use 'mounts' to make the cargo cache persistent in a Docker Volume.
 	// "mounts": [
@@ -22,7 +22,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "rustc --version",
+	"postCreateCommand": "sudo bash .devcontainer/install-dep.sh"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

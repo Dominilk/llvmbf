@@ -28,3 +28,6 @@ cargo build --release
 > clang helloworld.ll
 > ./a.out
 ```
+
+# devcontainer
+**NOTE:** After starting the devcontainer wait for `postCreateScript` to finish installation of llvm17. Then project can be built using instructions above.
