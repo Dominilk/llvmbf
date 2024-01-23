@@ -4,6 +4,8 @@
 Spec of brainf*ck can be found [here](https://github.com/sunjay/brainfuck/blob/master/brainfuck.md).
 > **Disclaimer:** Tape is fixed-size of 2^16, dynamic alloc would be needed for "infinite" size - didn't find the time to implement this - therefore tape wrap-around is used.
 
+This crate uses [inkwell](https://github.com/TheDan64/inkwell), a safe LLVM wrapper for Rust.
+
 # dependencies
 LLVM (up to 17) installed on system.
 General installation instructions can be found [here](https://apt.llvm.org). On macOS you can also install via `brew`:
