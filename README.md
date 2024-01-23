@@ -10,7 +10,7 @@ General installation instructions can be found [here](https://apt.llvm.org). On 
 ```
 brew install llvm@17
 ```
-Be sure to add to path so that it will be found by `llvm-sys`.
+Generally the same requirements from [llvm-sys](https://crates.io/crates/llvm-sys) apply here too.
 
 # build
 ```
