@@ -21,9 +21,6 @@ pub enum Instruction {
     Input,
 
     Loop(Vec<Instruction>),
-
-    /// Noop instruction, used for unknown instructions to pad the instruction vector.
-    Noop
 }
 
 /// Parses a string of brainf*ck code into a vector of instructions.
@@ -33,13 +30,13 @@ pub fn parse(index_offset: usize, code: &str) -> Result<Vec<Instruction>, ParseE
     let mut index = 0;
 
     while let Some(character) = code.chars().nth(index) { // TODO: linearly iterate through chars instead of index mess.
-        let instruction = match character {
-            '<' => Instruction::MoveLeft,
-            '>' => Instruction::MoveRight,
-            '+' => Instruction::Increment,
-            '-' => Instruction::Decrement,
-            '.' => Instruction::Output,
-            ',' => Instruction::Input,
+        match character {
+            '<' => instructions.push(Instruction::MoveLeft),
+            '>' => instructions.push(Instruction::MoveRight),
+            '+' => instructions.push(Instruction::Increment),
+            '-' => instructions.push(Instruction::Decrement),
+            '.' => instructions.push(Instruction::Output),
+            ',' => instructions.push(Instruction::Input),
             '[' => {
                 let begin = index;
                 let mut open = 1usize;
@@ -57,13 +54,11 @@ pub fn parse(index_offset: usize, code: &str) -> Result<Vec<Instruction>, ParseE
 
                 let loop_content = parse(begin, &code[begin + 1..index])?;
 
-                Instruction::Loop(loop_content)
+                instructions.push(Instruction::Loop(loop_content));
             },
             ']' => return Err(ParseError::UndelimitedJump { position: index_offset + index }),
-            _ => Instruction::Noop
+            _ => {}
         };
-
-        instructions.push(instruction);
 
         index += 1;
     }
@@ -78,10 +73,6 @@ mod tests {
     #[test]
     fn test_parse() {
         assert_eq!(parse(0, "ABC><+-.,[]").unwrap(), vec![
-            Instruction::Noop,
-            Instruction::Noop,
-            Instruction::Noop,
-
             Instruction::MoveRight,
             Instruction::MoveLeft,
             Instruction::Increment,

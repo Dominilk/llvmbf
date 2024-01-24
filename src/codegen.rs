@@ -3,7 +3,7 @@ use inkwell::{builder::{Builder, BuilderError}, context::Context, module::Module
 
 use crate::parser::Instruction;
 
-pub const TAPE_LEN: u16 = u16::MAX; // Note: Tape len may not be simply changed as type of head is i32 and we rely on default unsigned wrap-around.
+pub const TAPE_LEN: u16 = u16::MAX; // Note: Tape len may not be simply changed as type of head is i16 and we rely on default unsigned wrap-around.
 
 #[derive(Error, PartialEq, Eq, Debug)]
 pub enum CompileError {
@@ -115,8 +115,7 @@ fn compile_instructions<'ctx, 'i>(context: &'ctx Context, module: &Module<'ctx>,
                 )?;
 
                 builder.position_at_end(remain_block);
-            },
-            Instruction::Noop => {}
+            }
         }
     }
 
